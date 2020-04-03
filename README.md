@@ -31,6 +31,22 @@ in
 }
 ```
 
+and then, build and switch config:
+
+```
+# nixos-rebuild switch
+```
+
+# Updating
+
+When you will want to update your Upwork time tracker application, you can do:
+
+```
+# cd /etc/nixos/
+# git submodule update --remote
+# nixos-rebuild switch
+```
+
 # Build and hack
 
 In order to build and hack, you can use:
