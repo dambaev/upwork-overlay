@@ -16,8 +16,10 @@ stdenv.mkDerivation {
     sha256 = "0pplz41kp1l7nyw9kmf0p608p2nx9iy3b0i2dss8pkxmilb3x714";
   };
 
+  # we will use dpkg to unpack package
   buildInputs = [ dpkg ];
 
+  # we will do that manually
   dontUnpack = true;
 
   libPath = stdenv.lib.makeLibraryPath [
@@ -38,18 +40,25 @@ stdenv.mkDerivation {
   installPhase = ''
     dpkg-deb -x $src $out
 
+    # find all shared libraries and executables and patch path to libc and rpaths
     for file in $(find $out -type f \( -perm /0111 -o -name \*.so\* \) ); do
       patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" "$file" || true
       patchelf --set-rpath $libPath:$out/usr/share/upwork $file || true
     done
+    # app.node is shared library, but renamed, so handle it specifically and it
+    # requries libstdc++
     patchelf --set-rpath $libPath:${stdenv.cc.cc.lib}/lib:$out/usr/share/upwork $out/usr/share/upwork/app.node
 
+    # nixos expects $out/bin and $out/share to exists
     ln -s $out/usr/bin $out/bin
     ln -s $out/usr/share $out/share
 
+    # replace script's path from /usr/ to $out/usr
     substituteInPlace $out/usr/bin/upwork \
       --replace /usr/share/ $out/usr/share/
   '';
+
+  # we had done that manually
   dontStrip = true;
   dontPatchELF = true;
 
