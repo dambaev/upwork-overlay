@@ -43,6 +43,9 @@ stdenv.mkDerivation {
     done
     patchelf --set-rpath $libPath:${stdenv.cc.cc.lib}/lib:$out/usr/share/upwork $out/usr/share/upwork/app.node
 
+    ln -s $out/usr/bin $out/bin
+    ln -s $out/usr/share $out/share
+
     substituteInPlace $out/usr/bin/upwork \
       --replace /usr/share/ $out/usr/share/
   '';
