@@ -50,8 +50,15 @@ stdenv.mkDerivation {
     patchelf --set-rpath $libPath:${stdenv.cc.cc.lib}/lib:$out/opt/Upwork $out/opt/Upwork/app.node
 
     # nixos expects $out/bin and $out/share to exists
-    ln -s $out/opt/Upwork $out/bin
     ln -s $out/usr/share $out/share
+    mkdir $out/bin
+    # Upwork application tries to load app.node from working directory
+    cat <<EOF > $out/bin/upwork
+    set -e
+    cd $out/opt/Upwork
+    ./upwork &
+    EOF
+    chmod a+x $out/bin/upwork
   '';
 
   # we had done that manually
