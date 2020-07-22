@@ -1,6 +1,6 @@
 { stdenv, fetchurl, dpkg
 , glib, gdk-pixbuf, gtk3, xorg, libuuid, ffmpeg, nss, pango, nspr, at-spi2-atk
-, alsaLib, cairo, expat, atk, cups, dbus, gcc, systemd
+, alsaLib, cairo, expat, atk, cups, dbus, gcc, systemd, at-spi2-core
 }:
 let
   # TODO: refactor to map dotted version into version with _
@@ -23,7 +23,7 @@ stdenv.mkDerivation {
   dontUnpack = true;
 
   libPath = stdenv.lib.makeLibraryPath [
-    glib gdk-pixbuf gtk3 xorg.libxcb libuuid ffmpeg nss pango nspr at-spi2-atk
+    glib gdk-pixbuf gtk3 xorg.libxcb libuuid ffmpeg nss pango nspr at-spi2-atk at-spi2-core
     alsaLib cairo expat atk cups dbus gcc systemd
     xorg.libX11
     xorg.libXcomposite
