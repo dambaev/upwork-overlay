@@ -4,8 +4,8 @@
 }:
 let
   # TODO: refactor to map dotted version into version with _
-  version = "5.4.2.8";
-  version_hash = "5_4_2_8_17caa201e7ae4660";
+  version = "5.4.4.1";
+  version_hash = "5_4_4_1_91987f4195214f1b";
 in
 stdenv.mkDerivation {
   pname = "upwork";
