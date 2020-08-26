@@ -13,7 +13,7 @@ stdenv.mkDerivation {
 
   src = fetchurl {
     url = "https://updates-desktopapp.upwork.com/binaries/v${version_hash}/upwork_${version}_amd64.deb";
-    sha256 = "1fzg44x1gjsh37m1j92xqdmfn8x7kb3wlx3zfba6mk5bj9vb4cdd";
+    sha256 = "1yfi0k2m6d0c1452wgfry0vhpgb0w08g4hwxrp11h2rr6nc2a70s";
   };
 
   # we will use dpkg to unpack package
