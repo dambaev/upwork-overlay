@@ -4,8 +4,8 @@
 }:
 let
   # TODO: refactor to map dotted version into version with _
-  version = "5.4.4.1";
-  version_hash = "5_4_4_1_91987f4195214f1b";
+  version = "5.4.9.6";
+  version_hash = "5_4_9_6_2565cdd0547940a2";
 in
 stdenv.mkDerivation {
   pname = "upwork";
@@ -13,7 +13,7 @@ stdenv.mkDerivation {
 
   src = fetchurl {
     url = "https://updates-desktopapp.upwork.com/binaries/v${version_hash}/upwork_${version}_amd64.deb";
-    sha256 = "1yfi0k2m6d0c1452wgfry0vhpgb0w08g4hwxrp11h2rr6nc2a70s";
+    sha256 = "0mi4wm63avm4yfbmksdpqkd0pd7g5xjk8afakg67kvd1njrlcqpz";
   };
 
   # we will use dpkg to unpack package
