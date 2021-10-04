@@ -1,23 +1,31 @@
 { stdenv, fetchurl, dpkg
 , glib, gdk-pixbuf, gtk3, xorg, libuuid, ffmpeg, nss, pango, nspr, at-spi2-atk
 , alsaLib, cairo, expat, atk, cups, dbus, gcc, systemd, at-spi2-core
+, libdrm
+, libxkbcommon
+, mesa
 }:
 let
   # TODO: refactor to map dotted version into version with _
-  version = "5.4.9.6";
-  version_hash = "5_4_9_6_2565cdd0547940a2";
+  version = "5.6.7.13";
+  version_hash = "5_6_7_13_9f0e0a44a59e4331";
 in
 stdenv.mkDerivation {
   pname = "upwork";
   version = "${version}";
 
   src = fetchurl {
-    url = "https://updates-desktopapp.upwork.com/binaries/v${version_hash}/upwork_${version}_amd64.deb";
-    sha256 = "0mi4wm63avm4yfbmksdpqkd0pd7g5xjk8afakg67kvd1njrlcqpz";
+    url = "https://upwork-usw2-desktopapp.upwork.com/binaries/v${version_hash}/upwork_${version}_amd64.deb";
+    sha256 = "11yss70dn6inmmcxsr5k5zk2yig256k7ms9f34073xs7va61dlzi";
   };
 
   # we will use dpkg to unpack package
-  buildInputs = [ dpkg ];
+  buildInputs = [
+    dpkg
+    libdrm
+    libxkbcommon
+    mesa
+  ];
 
   # we will do that manually
   dontUnpack = true;
@@ -25,6 +33,9 @@ stdenv.mkDerivation {
   libPath = stdenv.lib.makeLibraryPath [
     glib gdk-pixbuf gtk3 xorg.libxcb libuuid ffmpeg nss pango nspr at-spi2-atk at-spi2-core
     alsaLib cairo expat atk cups dbus gcc systemd
+    libdrm
+    libxkbcommon
+    mesa
     xorg.libX11
     xorg.libXcomposite
     xorg.libXcursor
