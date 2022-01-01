@@ -4,6 +4,7 @@
 , libdrm
 , libxkbcommon
 , mesa
+, lib
 }:
 let
   # TODO: refactor to map dotted version into version with _
@@ -30,7 +31,7 @@ stdenv.mkDerivation {
   # we will do that manually
   dontUnpack = true;
 
-  libPath = stdenv.lib.makeLibraryPath [
+  libPath = lib.makeLibraryPath [
     glib gdk-pixbuf gtk3 xorg.libxcb libuuid ffmpeg nss pango nspr at-spi2-atk at-spi2-core
     alsaLib cairo expat atk cups dbus gcc systemd
     libdrm
@@ -79,7 +80,7 @@ stdenv.mkDerivation {
   meta = {
     homepage = https://upwork.com;
     description = "Time tracking application";
-    license = stdenv.lib.licenses.unfree;
+    license = lib.licenses.unfree;
     platforms = [ "x86_64-linux" ];
     maintainers = [];
   };
